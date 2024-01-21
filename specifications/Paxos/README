@@ -30,3 +30,7 @@ MCPaxos
   for the user to write such specs, essentially producing them
   itself from the models defined by the user.
    
+VotingApalache
+  A version of the Voting specification that can be analyzed
+  the the Apalache model-checker. Also contains an inductive
+  invariant that Apalache can verify for small system sizes.
