@@ -4,16 +4,14 @@
 
 EXTENDS Integers, FiniteSets
 
-None == "NONE_OF_VALUEORNONE"
-ValueOrNone == {"V1_OF_VALUEORNONE","V2_OF_VALUEORNONE","V3_OF_VALUEORNONE",None}
-Value == ValueOrNone \ {"NONE_OF_VALUEORNONE"}
+Value == {"V1_OF_VALUEORNONE","V2_OF_VALUEORNONE","V3_OF_VALUEORNONE"}
 Acceptor == {"A1_OF_ACCEPTOR","A2_OF_ACCEPTOR","A3_OF_ACCEPTOR"}
 \* The quorums are the sets of 2 acceptors:
 Quorum == {{"A1_OF_ACCEPTOR","A2_OF_ACCEPTOR"},{"A1_OF_ACCEPTOR","A3_OF_ACCEPTOR"},{"A2_OF_ACCEPTOR","A3_OF_ACCEPTOR"}}
 \* The quorums are the sets consisting of a strict majority of the acceptors:
 (* Quorum == {Q \in SUBSET Acceptor : 2*Cardinality(Q)>Cardinality(Acceptor)} *)
 
-MaxBal == 3
+MaxBal == 3 \* 1m45s with MaxBal=3
 Ballot == 0..MaxBal \* NOTE: has to be finite for Apalache because it is used as the domain of a function
 
 VARIABLES
@@ -23,7 +21,7 @@ VARIABLES
     maxBal
 
 TypeOK ==
-    /\ votes \in [Acceptor -> SUBSET (Ballot\times ValueOrNone)]
+    /\ votes \in [Acceptor -> SUBSET (Ballot\times Value)]
     /\ maxBal \in [Acceptor -> Ballot\cup {-1}]
 TypeOK_ == TypeOK
 
@@ -87,11 +85,11 @@ Canary2 == \neg (
 
 SafeAt(b, v) == \A c \in Ballot : c < b => NoneOtherChoosableAt(c, v)
 
-Inv0 == \A a \in Acceptor, b \in Ballot, v \in ValueOrNone :
-  <<b,v>> \in votes[a] => b <= maxBal[a] /\ v # None
+Inv0 == \A a \in Acceptor, b \in Ballot, v \in Value :
+  <<b,v>> \in votes[a] => b <= maxBal[a]
 Inv0_ == TypeOK /\ Inv0
 
-Inv1 == \A a1,a2 \in Acceptor, b \in Ballot, v1,v2 \in ValueOrNone :
+Inv1 == \A a1,a2 \in Acceptor, b \in Ballot, v1,v2 \in Value :
   <<b,v1>> \in votes[a1] /\ <<b,v2>> \in votes[a2] => v1 = v2
 Inv1_ == TypeOK /\ Inv1
 
@@ -104,12 +102,11 @@ Safety_ante == TypeOK /\ Inv1 /\ Inv2 \* We need the fact that a node does not v
 \* This invariant is inductive and establishes the safety property:
 Invariant ==
   /\ TypeOK
-  /\ \A a \in Acceptor, b \in Ballot, v \in ValueOrNone :
+  /\ \A a \in Acceptor, b \in Ballot, v \in Value  :
     <<b,v>> \in votes[a] => \* If acceptor a votes for v in ballot b, then:
-      /\ v # None \* v is not None
       /\ b <= maxBal[a] \* b is smaller than or equal to maxBal[a]
       \* No other acceptor votes for different values in the same round:
-      /\ \A a2 \in Acceptor, v2 \in ValueOrNone : <<b,v2>> \in votes[a2] => v = v2
+      /\ \A a2 \in Acceptor, v2 \in Value : <<b,v2>> \in votes[a2] => v = v2
       /\ SafeAt(b,v) \* v is safe at b
   /\ Safety
 Invariant_ == Invariant
