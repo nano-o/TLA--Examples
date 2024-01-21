@@ -8,19 +8,15 @@
 (*                                                                                 *)
 (*     * We fix the number of ballots                                              *)
 (*                                                                                 *)
-(*     * We add the necessary type annotation on variables                         *)
+(*     * We add the necessary type annotations on variables                        *)
 (*                                                                                 *)
 (*     * We rewrite SafeAt and ShowsSafeAt to avoid ranges of integers with        *)
 (*       non-constant bounds (which `^Apalache^' does not support).                *)
 (*                                                                                 *)
-(* Ideally, we would have instantiated Voting.tla, made the appropriate            *)
-(* substitutions, and reused the rest. However, the presence of TLAPS proofs in    *)
-(* Consensus.tla and Voting.tla seem to make `^Apalache^' fail.                    *)
-(*                                                                                 *)
-(* We also give an inductive invariant that proves the Safety property. On a       *)
-(* desktop computer bought in 2022, `^Apalache^' takes 1 minute and 45 seconds to  *)
-(* check that the invariant is inductive when there are for 3 values, 3 processes, *)
-(* and 4 ballots. Instructions to run `^Apalache^' appear at the end of the        *)
+(* We also give an inductive invariant that proves the consistency property. On a  *)
+(* desktop computer from 2022, `^Apalache^' takes 1 minute and 45 seconds to check *)
+(* that the invariant is inductive when there are 3 values, 3 processes, and 4     *)
+(* ballots. Instructions to run `^Apalache^' appear at the end of the              *)
 (* specification.                                                                  *)
 (***********************************************************************************)
                                                                                
@@ -34,7 +30,7 @@ Quorum == {
     {"A1_OF_ACCEPTOR","A3_OF_ACCEPTOR"},
     {"A2_OF_ACCEPTOR","A3_OF_ACCEPTOR"}}
 
-MaxBal == 3 \* 1m45s with MaxBal=3
+MaxBal == 2
 Ballot == 0..MaxBal \* NOTE: has to be finite for `^Apalache^' because it is used as the domain of a function
 
 VARIABLES
