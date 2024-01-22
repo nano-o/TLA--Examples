@@ -90,6 +90,8 @@ Next  ==  \E a \in Acceptor, b \in Ballot :
             \/ IncreaseMaxBal(a, b)
             \/ \E v \in Value : VoteFor(a, b, v)
 
+Spec == Init /\ [][Next]_<<votes, maxBal>>
+
 (********************************************************************************)
 (* Next, we define an inductive invariant that shows consistency. We reuse      *)
 (* definitions from Voting.tla and add the property NoVoteAfterMaxBal, which is *)
