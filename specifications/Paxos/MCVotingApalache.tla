@@ -1,5 +1,11 @@
 --------------------------- MODULE MCVotingApalache -------------------------------
 
+(*********************************************************************************)
+(* In this module we instantiate VotingApalache with small constants in order to *)
+(* run the `^Apalache^' model-checker. We also give type annotations for the     *)
+(* variables, which are required by `^Apalache^'.                                *)
+(*********************************************************************************)
+
 EXTENDS Integers
 
 Value == {"V1_OF_VALUE","V2_OF_VALUE"}
@@ -11,7 +17,7 @@ Quorum == {
     {"A2_OF_ACCEPTOR","A3_OF_ACCEPTOR"}}
 
 MaxBal == 2
-Ballot == 0..MaxBal \* NOTE: has to be finite for `^Apalache^' because it is used as the domain of a function
+Ballot == 0..MaxBal \* NOTE: we have to make this a finite set for `^Apalache^'
 
 VARIABLES
     \* @type: ACCEPTOR -> Set(<<Int,VALUE>>);
