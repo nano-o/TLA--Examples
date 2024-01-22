@@ -20,7 +20,7 @@
 (* specification.                                                                  *)
 (***********************************************************************************)
                                                                                
-EXTENDS Integers, FiniteSets
+EXTENDS Integers
 
 Value == {"V1_OF_VALUE","V2_OF_VALUE","V3_OF_VALUE"}
 Acceptor == {"A1_OF_ACCEPTOR","A2_OF_ACCEPTOR","A3_OF_ACCEPTOR"}
@@ -116,10 +116,11 @@ Invariant ==
   /\ NoVoteAfterMaxBal
   /\ Consistency
 
-\* To install `^Apalache,^' see the `^Apalache^' website at `^https://apalache.informal.systems/^'
+\* To install `^Apalache,^' see the `^Apalache^' website at `^https://apalache.informal.systems/^'.
+\* Note that this is not necessary if you are using the devcontainer, as `^Apalache,^' is already installed.
 \* To check that the invariant holds initially, run:
-\* ${APALACHE_HOME}/script/run-docker.sh check --init=Init --inv=Invariant --length=0 VotingApalache.tla
+\* apalache-mc check --init=Init --inv=Invariant --length=0 VotingApalache.tla
 \* To check that the invariant is preserved, run:
-\* ${APALACHE_HOME}/script/run-docker.sh check '--tuning-options=search.invariantFilter=1->.*' --init=Invariant --inv=Invariant --length=1 VotingApalache.tla
+\* apalache-mc check '--tuning-options=search.invariantFilter=1->.*' --init=Invariant --inv=Invariant --length=1 VotingApalache.tla
 
 =====================================================================================
