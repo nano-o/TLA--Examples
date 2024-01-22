@@ -35,12 +35,14 @@
 
 EXTENDS Naturals, FiniteSets
 
+House == 1..5
+
 \* Note that TLC!Permutations has a Java module override and, thus,
 \* would be evaluated faster.  However, TLC!Permutations equals a
 \* set of records whereas Permutation below equals a set of tuples/
 \* sequences.  Also, Permutation expects Cardinality(S) = 5.
-Permutation(S) == 
-    { p \in [ 1..5 -> S ] :
+Permutation(S) ==
+    { p \in [ House -> S ] :
         /\ p[2] \in S \ {p[1]}
         /\ p[3] \in S \ {p[1], p[2]}
         /\ p[4] \in S \ {p[1], p[2], p[3]}
@@ -58,10 +60,15 @@ PETS == Permutation({ "bird", "cat", "dog", "fish", "horse" })
 CIGARS == Permutation({ "blend", "bm", "dh", "pm", "prince" })
 
 VARIABLES
+    \* @type: Int -> Str;
     nationality,    \* tuple of nationalities
+    \* @type: Int -> Str;
     colors,         \* tuple of house colors
+    \* @type: Int -> Str;
     pets,           \* tuple of pets
+    \* @type: Int -> Str;
     cigars,         \* tuple of cigars
+    \* @type: Int -> Str;
     drinks          \* tuple of drinks
 
 ------------------------------------------------------------
