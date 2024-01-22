@@ -1,14 +1,10 @@
 ------------------------------- MODULE VotingApalache -------------------------------
 
 (***********************************************************************************)
-(* This is a version of Voting.tla that can be analyzed by the `^Apalache^'        *)
-(* model-checker. Here are the differences compared to Voting.tla:                 *)
+(* This is a version of `^Voting.tla^' that can be analyzed by the `^Apalache^'    *)
+(* model-checker. Here are the differences compared to `^Voting.tla^':             *)
 (*                                                                                 *)
-(*     * We give concrete definitions for the constants                            *)
-(*                                                                                 *)
-(*     * We fix the number of ballots                                              *)
-(*                                                                                 *)
-(*     * We add the necessary type annotations on variables                        *)
+(*     * We make Ballot a constant in order to be able to substitute a finite set. *)
 (*                                                                                 *)
 (*     * We rewrite SafeAt and ShowsSafeAt to avoid ranges of integers with        *)
 (*       non-constant bounds (which `^Apalache^' does not support).                *)
@@ -16,27 +12,19 @@
 (* We also give an inductive invariant that proves the consistency property. On a  *)
 (* desktop computer from 2022, `^Apalache^' takes 1 minute and 45 seconds to check *)
 (* that the invariant is inductive when there are 3 values, 3 processes, and 4     *)
-(* ballots. Instructions to run `^Apalache^' appear at the end of the              *)
-(* specification.                                                                  *)
+(* ballots. For model-checking with `^Apalache,^'see `^MCVotingApalache.tla^'.     *)
 (***********************************************************************************)
                                                                                
 EXTENDS Integers
 
-Value == {"V1_OF_VALUE","V2_OF_VALUE","V3_OF_VALUE"}
-Acceptor == {"A1_OF_ACCEPTOR","A2_OF_ACCEPTOR","A3_OF_ACCEPTOR"}
-\* The quorums are the sets of 2 acceptors:
-Quorum == {
-    {"A1_OF_ACCEPTOR","A2_OF_ACCEPTOR"},
-    {"A1_OF_ACCEPTOR","A3_OF_ACCEPTOR"},
-    {"A2_OF_ACCEPTOR","A3_OF_ACCEPTOR"}}
-
-MaxBal == 2
-Ballot == 0..MaxBal \* NOTE: has to be finite for `^Apalache^' because it is used as the domain of a function
+CONSTANTS
+    Value,
+    Acceptor,
+    Quorum,
+    Ballot
 
 VARIABLES
-    \* @type: ACCEPTOR -> Set(<<Int,VALUE>>);
     votes,
-    \* @type: ACCEPTOR -> Int;
     maxBal
 
 TypeOK ==
@@ -117,12 +105,6 @@ Invariant ==
   /\ OneValuePerBallot
   /\ NoVoteAfterMaxBal
   /\ Consistency
-
-\* To install `^Apalache,^' see the `^Apalache^' website at `^https://apalache.informal.systems/^'.
-\* Note that this is not necessary if you are using the devcontainer, as `^Apalache,^' is already installed.
-\* To check that the invariant holds initially, run:
-\* apalache-mc check --init=Init --inv=Invariant --length=0 VotingApalache.tla
-\* To check that the invariant is preserved, run:
-\* apalache-mc check '--tuning-options=search.invariantFilter=1->.*' --init=Invariant --inv=Invariant --length=1 VotingApalache.tla
+Invariant_ == Invariant
 
 =====================================================================================

@@ -1270,6 +1270,13 @@
           "models": []
         },
         {
+          "path": "specifications/Paxos/MCVotingApalache.tla",
+          "communityDependencies": [],
+          "tlaLanguageVersion": 2,
+          "features": [],
+          "models": []
+        },
+        {
           "path": "specifications/Paxos/Paxos.tla",
           "communityDependencies": [],
           "tlaLanguageVersion": 2,

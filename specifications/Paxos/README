@@ -32,5 +32,8 @@ MCPaxos
    
 VotingApalache
   A version of the Voting specification that can be analyzed
-  the the Apalache model-checker. Also contains an inductive
+  by the Apalache model-checker. Also contains an inductive
   invariant that Apalache can verify for small system sizes.
+MCVotingApalache
+  Specification used to model-check VotingApalache with the
+  Apalache model-checker.
