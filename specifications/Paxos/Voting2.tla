@@ -1,4 +1,4 @@
-------------------------------- MODULE VotingApalache -------------------------------
+------------------------------- MODULE Voting2 -------------------------------
 
 (***********************************************************************************)
 (* This is a version of `^Voting.tla^' that can be analyzed by the `^Apalache^'    *)
@@ -13,7 +13,7 @@
 (* We also give an inductive invariant that proves the consistency property. On a  *)
 (* desktop computer from 2022, `^Apalache^' takes 1 minute and 45 seconds to check *)
 (* that the invariant is inductive when there are 3 values, 3 processes, and 4     *)
-(* ballots. For model-checking with `^Apalache,^'see `^MCVotingApalache.tla^'.     *)
+(* ballots. For model-checking with `^Apalache,^'see `^ApaVoting2.tla^'.           *)
 (***********************************************************************************)
                                                                                
 EXTENDS Integers
@@ -106,6 +106,5 @@ Invariant ==
   /\ OneValuePerBallot
   /\ NoVoteAfterMaxBal
   /\ Consistency
-Invariant_ == Invariant
 
 =====================================================================================

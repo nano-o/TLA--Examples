@@ -1263,14 +1263,14 @@
           ]
         },
         {
-          "path": "specifications/Paxos/VotingApalache.tla",
+          "path": "specifications/Paxos/Voting2.tla",
           "communityDependencies": [],
           "tlaLanguageVersion": 2,
           "features": [],
           "models": []
         },
         {
-          "path": "specifications/Paxos/MCVotingApalache.tla",
+          "path": "specifications/Paxos/ApaVoting2.tla",
           "communityDependencies": [],
           "tlaLanguageVersion": 2,
           "features": [],

@@ -1,4 +1,4 @@
---------------------------- MODULE MCVotingApalache -------------------------------
+--------------------------- MODULE ApaVoting2 -------------------------------
 
 (*********************************************************************************)
 (* In this module we instantiate VotingApalache with small constants in order to *)
@@ -25,7 +25,7 @@ VARIABLES
     \* @type: ACCEPTOR -> Int;
     maxBal
 
-INSTANCE VotingApalache
+INSTANCE Voting2
 
 \* To install `^Apalache,^' see the `^Apalache^' website at `^https://apalache.informal.systems/^'.
 \* Note that this is not necessary if you are using the devcontainer, as `^Apalache,^' is already installed.
