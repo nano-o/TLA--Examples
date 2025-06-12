@@ -1,7 +1,7 @@
 --------------------------- MODULE ApaVoting2 -------------------------------
 
 (*********************************************************************************)
-(* In this module we instantiate VotingApalache with small constants in order to *)
+(* In this module we instantiate Voting2 with small constants in order to        *)
 (* run the `^Apalache^' model-checker. We also give type annotations for the     *)
 (* variables, which are required by `^Apalache^'.                                *)
 (*********************************************************************************)
